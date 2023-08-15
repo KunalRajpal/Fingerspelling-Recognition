@@ -15,5 +15,3 @@ from mediapipe.framework.formats import landmark_pb2
 from tensorflow import keras
 from tensorflow.keras import layers
 from tqdm.notebook import tqdm
-from matplotlib import animation, rc
-
