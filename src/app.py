@@ -17,37 +17,8 @@ from tqdm.notebook import tqdm
 from matplotlib import animation, rc
 from IPython.display import display, HTML
 
-
-def load_config(config_file="../config.json"):
-    with open(config_file, "r") as f:
-        config = json.load(f)
-    return config
-
-
-config = load_config()
-
-BASE_DATA_PATH = config["base_data_path"]
-
-# For CSV Files
-TRAIN_CSV_PATH = os.path.join(BASE_DATA_PATH, config["csv_files"]["train"])
-SUPPLEMENTAL_METADATA_CSV_PATH = os.path.join(
-    BASE_DATA_PATH, config["csv_files"]["supplemental_metadata"]
-)
-
-# For Parquet files
-# (You can format these paths as needed with file_id or other variables in your script)
-TRAIN_LANDMARK_PATTERN = os.path.join(
-    BASE_DATA_PATH, config["parquet_patterns"]["train_landmarks"]
-)
-SUPPLEMENTAL_LANDMARK_PATTERN = os.path.join(
-    BASE_DATA_PATH, config["parquet_patterns"]["supplemental_landmarks"]
-)
-
-# Load the data
-# pd Shape function outputs a tuple
-dataset_df = pd.read_csv(TRAIN_CSV_PATH)
-print("Full train dataset shape is {}".format(dataset_df.shape))
-print(dataset_df.head())
+# you can import whatever we have loaded here. Makes it more maintainable
+from utils.data_loader import dataset_df, TRAIN_LANDMARK_PATTERN
 
 # Fetch sequence_id, file_id, phrase from first row
 sequence_id, file_id, phrase = dataset_df.iloc[0][["sequence_id", "file_id", "phrase"]]
