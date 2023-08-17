@@ -36,3 +36,5 @@ sample_sequence_df = pq.read_table(
     ],
 ).to_pandas()
 print("Full sequence dataset shape is {}".format(sample_sequence_df.shape))
+print("# frames:{}".format(sample_sequence_df.shape[0]))
+print("# columns:{}".format(sample_sequence_df.shape[1]))
