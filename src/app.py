@@ -13,7 +13,7 @@ import random
 from skimage.transform import resize
 from mediapipe.framework.formats import landmark_pb2
 from tensorflow import keras
-from keras import layers
+from tensorflow.keras import layers
 from tqdm.notebook import tqdm
 from matplotlib import animation, rc
 
@@ -38,6 +38,11 @@ sample_sequence_df = pq.read_table(
 print("Full sequence dataset shape is {}".format(sample_sequence_df.shape))
 print("# frames:{}".format(sample_sequence_df.shape[0]))
 print("# columns:{}".format(sample_sequence_df.shape[1]))
+
+# assertions to make sure everything is running smoothly
+assert "sequence_id" in dataset_df.columns, "sequence_id not in csv columns"
+assert "file_id" in dataset_df.columns, "file_id not in csv columns"
+assert "phrase" in dataset_df.columns, "phrase not in csv columns"
 
 
 # Function create animation from images.
@@ -123,4 +128,5 @@ def get_hands(seq_df):
 hand_images, hand_landmarks = get_hands(sample_sequence_df)
 # Fetch and show the data for right hand
 anim = create_animation(np.array(hand_images)[:, 0])
+# plt.switch_backend("TkAgg")
 plt.show()  # This will display the animation
