@@ -17,9 +17,14 @@ from tensorflow.keras import layers
 from tqdm.notebook import tqdm
 from matplotlib import animation, rc
 
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 # Load the data
 # pd Shape function outputs a tuple
-dataset_df = pd.read_csv("./data/input/train.csv")
+# use absolute path here
+dataset_df = pd.read_csv(
+    "/Users/kunalrajpal/Documents/Tech/Fingerspelling-recognition/data/input/train.csv"
+)
 print("Full train dataset shape is {}".format(dataset_df.shape))
 print(dataset_df.head())
 
@@ -29,8 +34,9 @@ print(f"sequence_id: {sequence_id}, file_id: {file_id}, phrase: {phrase}")
 
 
 # Fetch data from parquet file
+# use absolute path here
 sample_sequence_df = pq.read_table(
-    f"./data/input/train_landmarks/{str(file_id)}.parquet",
+    f"/Users/kunalrajpal/Documents/Tech/Fingerspelling-recognition/data/input/train_landmarks/{str(file_id)}.parquet",
     filters=[
         [("sequence_id", "=", sequence_id)],
     ],
