@@ -18,7 +18,11 @@ from matplotlib import animation, rc
 from IPython.display import display, HTML
 
 # you can import whatever we have loaded here. Makes it more maintainable
+# custom imports
 from utils.data_loader import dataset_df, TRAIN_LANDMARK_PATTERN
+from utils.logger import setup_logger
+
+logger = setup_logger()
 
 # Fetch sequence_id, file_id, phrase from first row
 sequence_id, file_id, phrase = dataset_df.iloc[0][["sequence_id", "file_id", "phrase"]]
