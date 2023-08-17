@@ -16,9 +16,6 @@ from tensorflow.keras import layers
 from tqdm.notebook import tqdm
 from matplotlib import animation, rc
 from IPython.display import display, HTML
-%matplotlib inline
-
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # Load the data
 # pd Shape function outputs a tuple
@@ -133,9 +130,6 @@ def get_hands(seq_df):
 
 # Get the images created using mediapipe apis
 hand_images, hand_landmarks = get_hands(sample_sequence_df)
-plt.imshow(hand_images[0][0], cmap="gray")
-plt.show()
 # Fetch and show the data for right hand
-global anim
 anim = create_animation(np.array(hand_images)[:, 0])
 display(HTML(anim.to_jshtml()))  # This will display the animation
