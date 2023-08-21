@@ -2,14 +2,22 @@ import os
 import json
 import pandas as pd
 
+import os
 
-def load_config(config_file="../config.json"):
-    with open(config_file, "r") as f:
+# Determine the directory containing the data_loader.py script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Create the path to the config.json file
+config_file_path = os.path.join(script_dir, "..", "..", "config.json")
+
+
+def load_config(config_file_path):
+    with open(config_file_path, "r") as f:
         config = json.load(f)
     return config
 
 
-config = load_config()
+config = load_config(config_file_path)
 
 BASE_DATA_PATH = config["base_data_path"]
 
