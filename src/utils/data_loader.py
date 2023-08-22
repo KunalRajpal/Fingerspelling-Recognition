@@ -1,8 +1,11 @@
 import os
 import json
 import pandas as pd
-from utils.logger import setup_logger
 import os
+import pyarrow.parquet as pq
+
+# custom imports
+from utils.logger import setup_logger
 
 logger = setup_logger()
 
