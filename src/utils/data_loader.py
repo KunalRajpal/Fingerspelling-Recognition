@@ -20,20 +20,23 @@ def load_config(config_file_path):
 config = load_config(config_file_path)
 
 BASE_DATA_PATH = config["base_data_path"]
+INPUT_PATH = config["input_path"]
+PREPROCESSED_PATH = config["pre-processing"]["preprocessed"]
+TF_FILE = config["pre-processing"]["tf_file"]
 
 # For CSV Files
-TRAIN_CSV_PATH = os.path.join(BASE_DATA_PATH, config["csv_files"]["train"])
+TRAIN_CSV_PATH = os.path.join(INPUT_PATH, config["csv_files"]["train"])
 SUPPLEMENTAL_METADATA_CSV_PATH = os.path.join(
-    BASE_DATA_PATH, config["csv_files"]["supplemental_metadata"]
+    INPUT_PATH, config["csv_files"]["supplemental_metadata"]
 )
 
 # For Parquet files
 # (You can format these paths as needed with file_id or other variables in your script)
 TRAIN_LANDMARK_PATTERN = os.path.join(
-    BASE_DATA_PATH, config["parquet_patterns"]["train_landmarks"]
+    INPUT_PATH, config["parquet_patterns"]["train_landmarks"]
 )
 SUPPLEMENTAL_LANDMARK_PATTERN = os.path.join(
-    BASE_DATA_PATH, config["parquet_patterns"]["supplemental_landmarks"]
+    INPUT_PATH, config["parquet_patterns"]["supplemental_landmarks"]
 )
 
 # Load the data
