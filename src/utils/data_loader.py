@@ -51,8 +51,8 @@ SUPPLEMENTAL_LANDMARK_PATTERN = os.path.join(
 # Load the data
 # pd Shape function outputs a tuple
 dataset_df = pd.read_csv(TRAIN_CSV_PATH)
-print("Full train dataset shape is {}".format(dataset_df.shape))
-print(dataset_df.head())
+logger.info("Full train dataset shape is {}".format(dataset_df.shape))
+logger.info(dataset_df.head())
 
 # Fetch sequence_id, file_id, phrase from first row
 sequence_id, file_id, phrase = dataset_df.iloc[0][["sequence_id", "file_id", "phrase"]]
