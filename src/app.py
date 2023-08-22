@@ -17,43 +17,22 @@ from tqdm.notebook import tqdm
 from matplotlib import animation, rc
 from IPython.display import display, HTML
 
-# you can import whatever we have loaded here. Makes it more maintainable
 # custom imports
 from utils.data_loader import (
     dataset_df,
     TRAIN_LANDMARK_PATTERN,
-    PREPROCESSED_PATH,
     TF_FILE,
+    sequence_id,
+    file_id,
+    phrase,
+    sample_sequence_df,
 )
 from utils.logger import setup_logger
 
 logger = setup_logger()
 
-# Fetch sequence_id, file_id, phrase from first row
-sequence_id, file_id, phrase = dataset_df.iloc[0][["sequence_id", "file_id", "phrase"]]
-print(f"sequence_id: {sequence_id}, file_id: {file_id}, phrase: {phrase}")
-
-
-# Fetch data from parquet file
-sample_parquet_file = TRAIN_LANDMARK_PATTERN.format(file_id=file_id)
-sample_sequence_df = pq.read_table(
-    sample_parquet_file,
-    filters=[
-        [("sequence_id", "=", sequence_id)],
-    ],
-).to_pandas()
-print("Full sequence dataset shape is {}".format(sample_sequence_df.shape))
-print("# frames:{}".format(sample_sequence_df.shape[0]))
-print("# columns:{}".format(sample_sequence_df.shape[1]))
-
-# assertions to make sure everything is running smoothly
-assert "sequence_id" in dataset_df.columns, "sequence_id not in csv columns"
-assert "file_id" in dataset_df.columns, "file_id not in csv columns"
-assert "phrase" in dataset_df.columns, "phrase not in csv columns"
-
-
+# TODO: Separate the animation code into a different python file
 # Function create animation from images.
-
 matplotlib.rcParams["animation.embed_limit"] = 2**128
 matplotlib.rcParams["savefig.pad_inches"] = 0
 rc("animation", html="jshtml")
@@ -137,6 +116,7 @@ hand_images, hand_landmarks = get_hands(sample_sequence_df)
 anim = create_animation(np.array(hand_images)[:, 0])
 display(HTML(anim.to_jshtml()))  # This will display the animation
 
+# TODO: Separate the preprocessing data into a different py file
 # Pose coordinates for hand movement.
 LPOSE = [13, 15, 17, 19, 21]
 RPOSE = [14, 16, 18, 20, 22]
@@ -180,12 +160,6 @@ LPOSE_IDX = [
 # Set length of frames to 128
 FRAME_LEN = 128
 
-# # Create directory to store the new data
-# if not os.path.isdir("preprocessed"):
-#     os.mkdir("preprocessed")
-# else:
-#     shutil.rmtree("preprocessed")
-#     os.mkdir("preprocessed")
 
 # Loop through each file_id
 for file_id in tqdm(dataset_df.file_id.unique()):
